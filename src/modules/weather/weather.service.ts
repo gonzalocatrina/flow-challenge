@@ -1,14 +1,12 @@
 import {
   BadRequestException,
-  HttpException,
   HttpService,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { response } from 'express';
-import { ConstantsApp } from 'src/common/constants.app';
+import { ConstantsApp } from '@src/common/constants.app';
 
 @Injectable()
 export class WeatherService {
