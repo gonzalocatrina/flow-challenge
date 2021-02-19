@@ -5,9 +5,11 @@ import { WeatherModule } from './modules/weather/weather.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal:true,
-    envFilePath:'.env'})
-  ,WeatherModule],
+      isGlobal: true,
+      envFilePath: '.env',
+    }),
+    WeatherModule,
+  ],
   controllers: [],
   providers: [],
 })
