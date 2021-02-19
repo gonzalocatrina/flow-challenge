@@ -31,7 +31,6 @@ export class WeatherService {
   }
 
   async currentCity(ip: string, city?: string) {
-    let responseWeather;
     try {
       if (!city) {
         let responseIpApi = await this.getIpApiLocationInformation(ip);
@@ -81,7 +80,6 @@ export class WeatherService {
         )
         .toPromise()
         .catch((e) => {
-          console.error(e);
           throw new NotFoundException();
         });
       if (!response.data) {
