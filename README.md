@@ -1,7 +1,7 @@
 
 ## Description
 
-Flow challenge 
+Flow challenge
 
 ## Installation
 
@@ -22,6 +22,8 @@ PORT=3000
 IP_API_URL=http://ip-api.com/json/
 OPEN_WEATHER_API_URL=https://api.openweathermap.org/data/2.5/weather?q=
 OPEN_WEATHER_API_KEY=&appid=b09e27db2e345c84755d567a138dfba1
+OPEN_WEATHER_5_DAYS_API_URL=https://api.openweathermap.org/data/2.5/forecast?q=
+
 ```
 
 ## Running the app
