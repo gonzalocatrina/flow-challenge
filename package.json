@@ -2,7 +2,7 @@
   "name": "flow-challenge",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "Gonzalo Catrina",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@nestjs/common": "^7.5.1",
+    "@nestjs/config": "^0.6.3",
     "@nestjs/core": "^7.5.1",
     "@nestjs/platform-express": "^7.5.1",
     "reflect-metadata": "^0.1.13",
@@ -51,6 +52,9 @@
     "typescript": "^4.0.5"
   },
   "jest": {
+    "moduleNameMapper": {
+      "@src/(.*)": "<rootDir>/$1",
+      "@common/(.*)": "<rootDir>/common/$1"},
     "moduleFileExtensions": [
       "js",
       "json",
@@ -61,6 +65,7 @@
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
+    "moduleDirectories": ["node_modules", "src"],
     "collectCoverageFrom": [
       "**/*.(t|j)s"
     ],
