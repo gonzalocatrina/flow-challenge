@@ -20,7 +20,6 @@ export class WeatherService {
     try {
       response = await this.getIpApiLocationInformation(ip);
     } catch (error) {
-      console.error(error);
       if (error instanceof BadRequestException) {
         throw new BadRequestException(ConstantsApp.INVALID_IP_ERROR);
       }
@@ -34,20 +33,11 @@ export class WeatherService {
         let responseIpApi = await this.getIpApiLocationInformation(ip);
         city = responseIpApi.city;
       }
-      let response = await this.httpService
-        .get(
-          this.configService.get<string>('OPEN_WEATHER_API_URL') +
-            city +
-            this.configService.get<string>('OPEN_WEATHER_API_KEY'),
-        )
-        .toPromise()
-        .catch((e) => {
-          throw new NotFoundException();
-        });
-      if (!response.data) {
+      let response = await this.getWeatherInformation(city, false);
+      if (!response) {
         throw new InternalServerErrorException();
       }
-      return response.data;
+      return response;
     } catch (error) {
       console.error(error);
       if (error instanceof BadRequestException) {
@@ -70,20 +60,11 @@ export class WeatherService {
         let responseIpApi = await this.getIpApiLocationInformation(ip);
         city = responseIpApi.city;
       }
-      let response = await this.httpService
-        .get(
-          this.configService.get<string>('OPEN_WEATHER_5_DAYS_API_URL') +
-            city +
-            this.configService.get<string>('OPEN_WEATHER_API_KEY'),
-        )
-        .toPromise()
-        .catch((e) => {
-          throw new NotFoundException();
-        });
-      if (!response.data) {
+      let response = await this.getWeatherInformation(city, true);
+      if (!response) {
         throw new InternalServerErrorException();
       }
-      return response.data;
+      return response;
     } catch (error) {
       console.error(error);
       if (error instanceof BadRequestException) {
@@ -100,7 +81,7 @@ export class WeatherService {
     }
   }
 
-  async getIpApiLocationInformation(ip: string) {
+  private async getIpApiLocationInformation(ip: string) {
     const response = await this.httpService
       .get(this.configService.get<string>('IP_API_URL') + ip)
       .toPromise();
@@ -108,5 +89,33 @@ export class WeatherService {
       throw new BadRequestException();
     }
     return response.data;
+  }
+
+  private async getWeatherInformation(city:string, forecast:boolean){
+    let response;
+    if(forecast){     response = await this.httpService
+    .get(
+      this.configService.get<string>('OPEN_WEATHER_5_DAYS_API_URL') +
+        city +
+        this.configService.get<string>('OPEN_WEATHER_API_KEY'),
+    )
+    .toPromise()
+    .catch((e) => {
+      throw new NotFoundException();
+    });
+  }
+  else{
+    response = await this.httpService
+    .get(
+      this.configService.get<string>('OPEN_WEATHER_API_URL') +
+        city +
+        this.configService.get<string>('OPEN_WEATHER_API_KEY'),
+    )
+    .toPromise()
+    .catch((e) => {
+      throw new NotFoundException();
+    });
+  }
+    return response.data
   }
 }
