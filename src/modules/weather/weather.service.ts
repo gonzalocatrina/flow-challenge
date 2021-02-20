@@ -91,31 +91,31 @@ export class WeatherService {
     return response.data;
   }
 
-  private async getWeatherInformation(city:string, forecast:boolean){
+  private async getWeatherInformation(city: string, forecast: boolean) {
     let response;
-    if(forecast){     response = await this.httpService
-    .get(
-      this.configService.get<string>('OPEN_WEATHER_5_DAYS_API_URL') +
-        city +
-        this.configService.get<string>('OPEN_WEATHER_API_KEY'),
-    )
-    .toPromise()
-    .catch((e) => {
-      throw new NotFoundException();
-    });
-  }
-  else{
-    response = await this.httpService
-    .get(
-      this.configService.get<string>('OPEN_WEATHER_API_URL') +
-        city +
-        this.configService.get<string>('OPEN_WEATHER_API_KEY'),
-    )
-    .toPromise()
-    .catch((e) => {
-      throw new NotFoundException();
-    });
-  }
-    return response.data
+    if (forecast) {
+      response = await this.httpService
+        .get(
+          this.configService.get<string>('OPEN_WEATHER_5_DAYS_API_URL') +
+            city +
+            this.configService.get<string>('OPEN_WEATHER_API_KEY'),
+        )
+        .toPromise()
+        .catch((e) => {
+          throw new NotFoundException();
+        });
+    } else {
+      response = await this.httpService
+        .get(
+          this.configService.get<string>('OPEN_WEATHER_API_URL') +
+            city +
+            this.configService.get<string>('OPEN_WEATHER_API_KEY'),
+        )
+        .toPromise()
+        .catch((e) => {
+          throw new NotFoundException();
+        });
+    }
+    return response.data;
   }
 }
